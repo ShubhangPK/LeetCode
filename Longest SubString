@@ -1,30 +1,26 @@
+import java.util.*;
 class Solution {
-public int lengthOfLongestSubstring(String s) {
-    if(s==null||s.length()==0){
-        return 0;
-    }
- 
-    HashSet<Character> hs = new HashSet<>();
-    int count = 1;
-    int i=0; 
-    for(int j=0; j<s.length(); j++){
-        char c = s.charAt(j);
-        if(!hs.contains(c)){
-            hs.add(c);
-            count = Math.max(count, hs.size());
-        }else{
-            while(i<j){
-                if(s.charAt(i)==c){
-                    i++;
-                    break;
-                }
- 
-                hs.remove(s.charAt(i));
-                i++;
+    public int lengthOfLongestSubstring(String s) {
+      char charArray[] = s.toCharArray();
+        int longest = 0;
+        int n = s.length();
+        String longestString = null;
+        HashMap<Character,Integer> hm = new HashMap<Character,Integer>();
+        for(int i=0;i<n;i++){
+            char ch =charArray[i];
+            if(!hm.containsKey(ch)){
+                hm.put(ch,i);
             }
-        }    
+            else{
+                i = hm.get(ch);
+                hm.clear();
+            }
+             if(hm.size()>longest){
+            longest = hm.size();
+        }
+        }
+       
+        return longest;
+        
     }
- 
-    return count;
-}
 }
